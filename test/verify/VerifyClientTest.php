@@ -67,23 +67,6 @@ final class VerifyClientTest extends ClientTest {
       ],
       [
         VerifyClient::class,
-        "push",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-          self::EXAMPLE_UCID,
-          [
-            "verify_code" => self::EXAMPLE_VERIFY_CODE
-          ]
-        ],
-        self::EXAMPLE_REST_ENDPOINT. "/v2/verify/push",
-        [
-          "ucid" => self::EXAMPLE_UCID,
-          "verify_code" => self::EXAMPLE_VERIFY_CODE,
-          "phone_number" => self::EXAMPLE_PHONE_NUMBER
-        ]
-      ],
-      [
-        VerifyClient::class,
         "status",
         [
           self::EXAMPLE_REFERENCE_ID,
