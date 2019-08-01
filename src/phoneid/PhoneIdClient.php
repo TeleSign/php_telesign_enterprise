@@ -15,6 +15,8 @@ use telesign\sdk\phoneid\PhoneIdClient as _PhoneIdClient;
 class PhoneIdClient extends _PhoneIdClient {
 
   const PHONEID_STANDARD_RESOURCE = "/v1/phoneid/standard/%s";
+  const PHONEID_CONSENT_RESOURCE = "/consent/%s";
+  const PHONEID_CONSENT_HISTORY_RESOURCE = "/consent/history/%s";
   const PHONEID_SCORE_RESOURCE = "/v1/phoneid/score/%s";
   const PHONEID_CONTACT_RESOURCE = "/v1/phoneid/contact/%s";
   const PHONEID_LIVE_RESOURCE = "/v1/phoneid/live/%s";
@@ -44,6 +46,36 @@ class PhoneIdClient extends _PhoneIdClient {
     return $this->get(sprintf(self::PHONEID_SCORE_RESOURCE, $phone_number), array_merge($other, [
       "ucid" => $ucid
     ]));
+  }
+  /**
+   * The PhoneID Consent API's send feature allows you to send consent information for an add-on or add-ons that require(s) it.
+   **/
+  function consent_send($phone_number, array $other = []) {
+    return $this->post(sprintf(self::PHONEID_CONSENT_RESOURCE, $phone_number), array_merge($other));
+  }
+
+  /**
+   * The PhoneID Consent API's search feature allows you to search for and retrieve consent information for an end user by phone number.
+   **/
+
+  function consent_search($phone_number) {
+    return $this->get(sprintf(self::PHONEID_CONSENT_RESOURCE, $phone_number));
+  }
+
+  /**
+   * The PhoneID Consent API's retrieve all history feature allows you to retrieve all available consent history for a phone number.
+   **/
+
+  function consent_history($phone_number, array $other = []) {
+    return $this->get(sprintf(self::PHONEID_CONSENT_HISTORY_RESOURCE, $phone_number), array_merge($other));
+  }
+
+  /**
+   * The PhoneID Consent API's delete feature allows you to delete consent information for a phone number.
+   **/
+
+  function consent_delete($phone_number, array $other =[]) {
+    return $this->delete(sprintf(self::PHONEID_CONSENT_RESOURCE, $phone_number), array_merge($other));
   }
 
   /**

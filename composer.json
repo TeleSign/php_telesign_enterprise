@@ -29,5 +29,12 @@
   },
   "scripts": {
     "test": "phpunit --bootstrap ./vendor/autoload.php test/"
+  },
+  "repositories": {
+    "telesign/telesignenterprise": {
+      "type": "vcs",
+      "url": "ssh://git@github.com/TeleSign/php_telesign_enterprise"
+
+    }
   }
 }
