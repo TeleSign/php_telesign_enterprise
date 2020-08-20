@@ -15,7 +15,7 @@ final class TelebureauClientTest extends ClientTest {
   function getRequestExamples () {
     return [
       [
-        TelebureauClient::class,
+        TeleBureauClient::class,
         "createEvent",
         [
           [
@@ -32,7 +32,7 @@ final class TelebureauClientTest extends ClientTest {
         ]
       ],
       [
-        TelebureauClient::class,
+        TeleBureauClient::class,
         "retrieveEvent",
         [
           self::EXAMPLE_REFERENCE_ID,
@@ -44,7 +44,7 @@ final class TelebureauClientTest extends ClientTest {
         []
       ],
       [
-        TelebureauClient::class,
+        TeleBureauClient::class,
         "deleteEvent",
         [
           self::EXAMPLE_REFERENCE_ID,
