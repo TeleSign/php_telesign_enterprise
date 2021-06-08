@@ -9,7 +9,7 @@
     :target: https://www.travis-ci.com/github/TeleSign/php_telesign_enterprise
 
 .. image:: https://img.shields.io/codecov/c/github/TeleSign/php_telesign_enterprise.svg
-    :target: https://codecov.io/gh/TeleSign/php_telesign
+    :target: https://codecov.io/gh/TeleSign/php_telesign_enterprise
 
 .. image:: https://img.shields.io/packagist/v/telesign/telesignenterprise.svg
     :target: https://packagist.org/packages/telesign/telesignenterprise
