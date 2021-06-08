@@ -29,6 +29,6 @@
     "psr-4": { "telesign\\enterprise\\sdk\\": "test/", "telesign\\sdk\\": "vendor/telesign/telesign/test/" }
   },
   "scripts": {
-    "test": "phpunit --bootstrap ./vendor/autoload.php test/"
+    "test": "phpunit --bootstrap ./vendor/autoload.php test/ --coverage-clover coverage.xml --whitelist src/"
   }
 }
