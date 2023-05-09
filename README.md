@@ -15,7 +15,7 @@
 
 ## Installation
 
-Follow these steps to add this SDK as a dependency to your project. Both the Telesign Full-service PHP SDK and the Telesign Self-service PHP SDK are installed because the Full-service SDK also uses some functionality in the Self-service SDK.
+Follow these steps to add this SDK as a dependency to your project.
 
 1. *(Optional)* Create a new directory for your PHP project. Skip this step if you already have created a project. If you plan to create multiple PHP projects that use Telesign, we recommend that you group them within a `telesign_integrations` directory.
 ```
@@ -25,9 +25,11 @@ Follow these steps to add this SDK as a dependency to your project. Both the Tel
     mkdir {your project name}
     cd {your project name}
 ```
-2. Install the SDK as a dependency in the top-level directory of your project using the command below. Once the SDK is installed, you should see a message in the terminal notifying you that you have successfully installed the SDK.
+2. Install the Telesign Full-service PHP SDK as a dependency in the top-level directory of your Composer project using this command. Once the SDK is installed, you should see a message in the terminal notifying you that you have successfully installed the SDK.
 
     `composer require telesign/telesignenterprise`
+
+This will also install the Telesign Self-service PHP SDK since it is a dependency for the Full-service SDK. 
 
 ## Authentication
 
