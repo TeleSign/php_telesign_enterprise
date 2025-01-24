@@ -10,6 +10,7 @@ final class VerifyClientTest extends ClientTest {
   const EXAMPLE_PHONE_NUMBER = Example::PHONE_NUMBER;
   const EXAMPLE_UCID = Example::UCID;
   const EXAMPLE_REFERENCE_ID = Example::REFERENCE_ID;
+  const BASE_URL_VERIFICATION_PROCESS = "https://verify.telesign.com";
   const EXAMPLE_VERIFY_CODE = "1234";
 
   function getRequestExamples () {
@@ -90,6 +91,20 @@ final class VerifyClientTest extends ClientTest {
         [
           "optional_param" => "123"
         ]
+      ],
+      [
+        VerifyClient::class,
+        "createVerificationProcess",
+        [
+          self::EXAMPLE_PHONE_NUMBER,
+          [
+            "verification_policy" => [
+              [ "method" => "sms" ]
+            ],
+          ]
+        ],
+        self::BASE_URL_VERIFICATION_PROCESS . "/verification",
+        json_encode(Example::objExampleVerification())
       ],
     ];
   }
