@@ -15,7 +15,7 @@ class VerifyClient extends RestClient {
   const VERIFY_SMART_RESOURCE = "/v1/verify/smart";
   const VERIFY_STATUS_RESOURCE = "/v1/verify/%s";
   const VERIFY_COMPLETION_RESOURCE = "/v1/verify/completion/%s";
-  const BASE_URL_VERIFICATION_PROCESS = "https://verify.telesign.com";
+  const BASE_URL_VERIFY_API = "https://verify.telesign.com";
   const DEFAULT_FS_BASE_URL = "https://rest-ww.telesign.com";
   const PATH_VERIFICATION = "/verification";
 
@@ -30,7 +30,7 @@ class VerifyClient extends RestClient {
     * See https://developer.telesign.com/enterprise/reference/createverificationprocess for detailed API documentation.
   */
   function createVerificationProcess ($phone_number, array $params = []) {
-    $this->setRestEndpoint(self::BASE_URL_VERIFICATION_PROCESS);
+    $this->setRestEndpoint(self::BASE_URL_VERIFY_API);
 
     $params["recipient"] = [
       "phone_number" => $phone_number
