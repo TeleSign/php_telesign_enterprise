@@ -6,19 +6,43 @@ use telesign\sdk\rest\RestClient;
 
 /**
  * The Verify API delivers phone-based verification and two-factor authentication using a time-based, one-time passcode
- * sent via SMS message, Voice call or Push Notification.
+ * sent via SMS message or Voice call.
  */
 class VerifyClient extends RestClient {
 
   const VERIFY_SMS_RESOURCE = "/v1/verify/sms";
   const VERIFY_VOICE_RESOURCE = "/v1/verify/call";
   const VERIFY_SMART_RESOURCE = "/v1/verify/smart";
-  const VERIFY_PUSH_RESOURCE = "/v2/verify/push";
   const VERIFY_STATUS_RESOURCE = "/v1/verify/%s";
   const VERIFY_COMPLETION_RESOURCE = "/v1/verify/completion/%s";
+  const BASE_URL_VERIFY_API = "https://verify.telesign.com";
+  const DEFAULT_FS_BASE_URL = "https://rest-ww.telesign.com";
+  const PATH_VERIFICATION = "/verification";
 
-  function __construct ($customer_id, $api_key, $rest_endpoint = "https://rest-ww.telesign.com", ...$other) {
+
+  function __construct ($customer_id, $api_key, $rest_endpoint = self::DEFAULT_FS_BASE_URL, ...$other) {
     parent::__construct($customer_id, $api_key, $rest_endpoint, ...$other);
+  }
+
+  /**
+    * Use this action to create a verification process for the specified phone number.
+    * 
+    * See https://developer.telesign.com/enterprise/reference/createverificationprocess for detailed API documentation.
+  */
+  function createVerificationProcess ($phone_number, array $params = []) {
+    $this->setRestEndpoint(self::BASE_URL_VERIFY_API);
+
+    $params["recipient"] = [
+      "phone_number" => $phone_number
+    ];
+
+    if (!isset($params["verification_policy"])) {
+      $params["verification_policy"] = [
+        [ "method" => "sms" ]
+      ];
+    }
+
+    return $this->post(self::PATH_VERIFICATION, $params, null, null, "application/json", "Basic");
   }
 
   /**
@@ -54,20 +78,6 @@ class VerifyClient extends RestClient {
    */
   function smart ($phone_number, $ucid, array $other = []) {
     return $this->post(self::VERIFY_SMART_RESOURCE, array_merge($other, [
-      "phone_number" => $phone_number,
-      "ucid" => $ucid
-    ]));
-  }
-
-  /**
-   * The Push Verify web service allows you to provide on-device transaction authorization for your end users. It
-   * works by delivering authorization requests to your end users via push notification, and then by receiving their
-   * permission responses via their mobile device's wireless Internet connection.
-   *
-   * See https://developer.telesign.com/docs/rest_api-verify-push for detailed API documentation.
-   */
-  function push ($phone_number, $ucid, array $other = []) {
-    return $this->post(self::VERIFY_PUSH_RESOURCE, array_merge($other, [
       "phone_number" => $phone_number,
       "ucid" => $ucid
     ]));
