@@ -1,6 +1,6 @@
 {
   "name": "telesign/telesignenterprise",
-  "description": "TeleSign Enterprise SDK",
+  "description": "Telesign Full-service PHP SDK",
   "type": "library",
   "keywords": [
     "telesign", "sms", "voice", "mobile", "authentication", "identity", "messaging"

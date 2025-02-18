@@ -5,8 +5,7 @@ namespace telesign\enterprise\sdk\verify;
 use telesign\sdk\rest\RestClient;
 
 /**
- * The Verify API delivers phone-based verification and two-factor authentication using a time-based, one-time passcode
- * sent via SMS message or Voice call.
+ * The Telesign Verify API makes it easy for you to set up phone-based, multi-factor authentication (MFA) using multiple channels and methods.
  */
 class VerifyClient extends RestClient {
 
