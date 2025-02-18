@@ -1,6 +1,6 @@
 {
   "name": "telesign/telesignenterprise",
-  "description": "TeleSign Enterprise SDK",
+  "description": "Telesign Full-service PHP SDK",
   "type": "library",
   "keywords": [
     "telesign", "sms", "voice", "mobile", "authentication", "identity", "messaging"
@@ -9,14 +9,14 @@
   "homepage": "https://github.com/telesign/php_telesign_enterprise",
   "authors": [
     {
-      "name": "TeleSign Corp.",
+      "name": "Telesign Corp.",
       "email": "support@telesign.com",
       "homepage": "https://www.telesign.com"
     }
   ],
   "require": {
     "php": "^7.2.5 || ^8.0",
-    "telesign/telesign": "^3.0.0"
+    "telesign/telesign": "3.0.4"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
