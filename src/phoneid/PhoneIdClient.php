@@ -3,6 +3,7 @@
 namespace telesign\enterprise\sdk\phoneid;
 
 use telesign\sdk\phoneid\PhoneIdClient as _PhoneIdClient;
+use telesign\enterprise\sdk\Config;
 
 /**
  * PhoneID is a set of REST APIs that deliver deep phone number data attributes that help optimize the end user
@@ -21,7 +22,9 @@ class PhoneIdClient extends _PhoneIdClient {
   const PHONEID_NUMBER_DEACTIVATION_RESOURCE = "/v1/phoneid/number_deactivation/%s";
 
   function __construct ($customer_id, $api_key, $rest_endpoint = "https://rest-ww.telesign.com", ...$other) {
-    parent::__construct($customer_id, $api_key, $rest_endpoint, ...$other);
+    $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
+    $sdk_version_dependency = Config::getVersion('telesign/telesign');
+    parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
   }
 
   /**

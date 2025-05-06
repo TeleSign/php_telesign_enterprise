@@ -3,6 +3,7 @@
 namespace telesign\enterprise\sdk\verify;
 
 use telesign\sdk\rest\RestClient;
+use telesign\enterprise\sdk\Config;
 
 /**
  * The Telesign Verify API makes it easy for you to set up phone-based, multi-factor authentication (MFA) using multiple channels and methods.
@@ -20,7 +21,9 @@ class VerifyClient extends RestClient {
 
 
   function __construct ($customer_id, $api_key, $rest_endpoint = self::DEFAULT_FS_BASE_URL, ...$other) {
-    parent::__construct($customer_id, $api_key, $rest_endpoint, ...$other);
+    $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
+    $sdk_version_dependency = Config::getVersion('telesign/telesign');
+    parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
   }
 
   /**
