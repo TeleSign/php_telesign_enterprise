@@ -3,6 +3,7 @@
 namespace telesign\enterprise\sdk\telebureau;
 
 use telesign\sdk\rest\RestClient;
+use telesign\enterprise\sdk\Config;
 
 /**
  * TeleBureau is a service is based on TeleSign's watchlist, which is a proprietary database containing verified phone
@@ -16,7 +17,9 @@ class TelebureauClient extends RestClient {
   const TELEBUREAU_DELETE_RESOURCE = "/v1/telebureau/event/%s";
 
   function __construct ($customer_id, $api_key, $rest_endpoint = "https://rest-ww.telesign.com", ...$other) {
-    parent::__construct($customer_id, $api_key, $rest_endpoint, ...$other);
+    $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
+    $sdk_version_dependency = Config::getVersion('telesign/telesign');
+    parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
   }
 
   /**
