@@ -3,6 +3,7 @@
 namespace telesign\enterprise\sdk\messaging;
 
 use telesign\sdk\messaging\MessagingClient as _MessagingClient;
+use telesign\enterprise\sdk\Config;
 
 /**
  * TeleSign's Messaging API allows you to easily send SMS messages. You can send alerts, reminders, and notifications,
@@ -13,7 +14,9 @@ class MessagingClient extends _MessagingClient {
   const OMNI_MESSAGING_RESOURCE = "/v1/omnichannel";
 
   function __construct ($customer_id, $api_key, $rest_endpoint = "https://rest-ww.telesign.com", ...$other) {
-    parent::__construct($customer_id, $api_key, $rest_endpoint, ...$other);
+    $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
+    $sdk_version_dependency = Config::getVersion('telesign/telesign');
+    parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
   }
 
   /**
