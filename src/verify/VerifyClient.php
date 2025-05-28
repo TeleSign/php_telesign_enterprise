@@ -4,6 +4,7 @@ namespace telesign\enterprise\sdk\verify;
 
 use telesign\sdk\rest\RestClient;
 use telesign\enterprise\sdk\Config;
+use telesign\enterprise\sdk\verify\VerificationProcessClient;
 
 /**
  * The Telesign Verify API makes it easy for you to set up phone-based, multi-factor authentication (MFA) using multiple channels and methods.
@@ -15,12 +16,12 @@ class VerifyClient extends RestClient {
   const VERIFY_SMART_RESOURCE = "/v1/verify/smart";
   const VERIFY_STATUS_RESOURCE = "/v1/verify/%s";
   const VERIFY_COMPLETION_RESOURCE = "/v1/verify/completion/%s";
-  const BASE_URL_VERIFY_API = "https://verify.telesign.com";
   const DEFAULT_FS_BASE_URL = "https://rest-ww.telesign.com";
-  const PATH_VERIFICATION = "/verification";
 
+  protected $verification_process;
 
   function __construct ($customer_id, $api_key, $rest_endpoint = self::DEFAULT_FS_BASE_URL, ...$other) {
+    $this->verification_process = new VerificationProcessClient($customer_id, $api_key);
     $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
     $sdk_version_dependency = Config::getVersion('telesign/telesign');
     parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
@@ -31,20 +32,8 @@ class VerifyClient extends RestClient {
     * 
     * See https://developer.telesign.com/enterprise/reference/createverificationprocess for detailed API documentation.
   */
-  function createVerificationProcess ($phone_number, array $params = []) {
-    $this->setRestEndpoint(self::BASE_URL_VERIFY_API);
-
-    $params["recipient"] = [
-      "phone_number" => $phone_number
-    ];
-
-    if (!isset($params["verification_policy"])) {
-      $params["verification_policy"] = [
-        [ "method" => "sms" ]
-      ];
-    }
-
-    return $this->post(self::PATH_VERIFICATION, $params, null, null, "application/json", "Basic");
+  public function createVerificationProcess ($phone_number, array $params = []) {
+   return $this->verification_process->create($phone_number, $params);
   }
 
   /**
