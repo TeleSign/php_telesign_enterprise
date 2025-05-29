@@ -4,7 +4,7 @@ namespace telesign\enterprise\sdk\verify;
 
 use telesign\sdk\rest\RestClient;
 use telesign\enterprise\sdk\Config;
-use telesign\enterprise\sdk\verify\VerificationProcessClient;
+use telesign\enterprise\sdk\verify\OmniVerifyClient;
 
 /**
  * The Telesign Verify API makes it easy for you to set up phone-based, multi-factor authentication (MFA) using multiple channels and methods.
@@ -18,10 +18,10 @@ class VerifyClient extends RestClient {
   const VERIFY_COMPLETION_RESOURCE = "/v1/verify/completion/%s";
   const DEFAULT_FS_BASE_URL = "https://rest-ww.telesign.com";
 
-  protected $verification_process;
+  protected $omni_verify_client;
 
   function __construct ($customer_id, $api_key, $rest_endpoint = self::DEFAULT_FS_BASE_URL, ...$other) {
-    $this->verification_process = new VerificationProcessClient($customer_id, $api_key);
+    $this->omni_verify_client = new OmniVerifyClient($customer_id, $api_key);
     $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
     $sdk_version_dependency = Config::getVersion('telesign/telesign');
     parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
@@ -33,7 +33,7 @@ class VerifyClient extends RestClient {
     * See https://developer.telesign.com/enterprise/reference/createverificationprocess for detailed API documentation.
   */
   public function createVerificationProcess ($phone_number, array $params = []) {
-   return $this->verification_process->create($phone_number, $params);
+   return $this->omni_verify_client->create($phone_number, $params);
   }
 
   /**

@@ -93,7 +93,7 @@ final class VerifyClientTest extends ClientTest {
         ]
       ],
       [
-        VerificationProcessClient::class,
+        OmniVerifyClient::class,
         "create",
         [
           self::EXAMPLE_PHONE_NUMBER,
@@ -107,7 +107,7 @@ final class VerifyClientTest extends ClientTest {
         json_encode(Example::objExampleVerification())
       ],
       [
-        VerificationProcessClient::class,
+        OmniVerifyClient::class,
         "update",
         [
           self::EXAMPLE_REFERENCE_ID,
@@ -123,7 +123,7 @@ final class VerifyClientTest extends ClientTest {
         ])
       ],
       [
-        VerificationProcessClient::class,
+        OmniVerifyClient::class,
         "retrieve",
         [
           self::EXAMPLE_REFERENCE_ID

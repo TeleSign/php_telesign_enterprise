@@ -6,9 +6,10 @@ use telesign\sdk\rest\RestClient;
 use telesign\enterprise\sdk\Config;
 
 /**
- * The Telesign Verification Process makes it easy for you ...
+ * The Telesign Verify API makes it easy for you to set up phone-based, multi-factor authentication (MFA) using multiple channels and methods.
+ * See https://developer.telesign.com/enterprise/docs/verify-api-overview for detailed product documentation.
  */
-class VerificationProcessClient extends RestClient {
+class OmniVerifyClient extends RestClient {
 
   const BASE_URL_VERIFY_API = "https://verify.telesign.com";
   const PATH_CREATE = "/verification";
