@@ -93,8 +93,8 @@ final class VerifyClientTest extends ClientTest {
         ]
       ],
       [
-        VerifyClient::class,
-        "createVerificationProcess",
+        OmniVerifyClient::class,
+        "create",
         [
           self::EXAMPLE_PHONE_NUMBER,
           [
@@ -103,8 +103,33 @@ final class VerifyClientTest extends ClientTest {
             ],
           ]
         ],
-        self::BASE_URL_VERIFICATION_PROCESS . "/verification",
+        self::EXAMPLE_REST_ENDPOINT . "/verification",
         json_encode(Example::objExampleVerification())
+      ],
+      [
+        OmniVerifyClient::class,
+        "update",
+        [
+          self::EXAMPLE_REFERENCE_ID,
+          [
+            "action" => "finalize",
+            "security_factor" => "203466"
+          ]
+        ],
+        self::EXAMPLE_REST_ENDPOINT . "/verification/". self::EXAMPLE_REFERENCE_ID. "/state",
+        json_encode([
+          "action" => "finalize",
+          "security_factor" => "203466"
+        ])
+      ],
+      [
+        OmniVerifyClient::class,
+        "retrieve",
+        [
+          self::EXAMPLE_REFERENCE_ID
+        ],
+        self::EXAMPLE_REST_ENDPOINT . "/verification/". self::EXAMPLE_REFERENCE_ID,
+        []
       ],
     ];
   }
