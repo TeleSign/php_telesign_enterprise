@@ -84,6 +84,24 @@ final class PhoneIdClientTest extends ClientTest {
         ],
         "uri" => self::EXAMPLE_REST_ENDPOINT . "/v1/phoneid/" . self::EXAMPLE_PHONE_NUMBER,
         "{}",
+      ],
+      [
+        PhoneIdClient::class,
+        "getInfo",
+        [
+          self::EXAMPLE_PHONE_NUMBER,
+        ],
+        "uri" => self::EXAMPLE_REST_ENDPOINT . "/v1/phoneid/" . self::EXAMPLE_PHONE_NUMBER,
+        '{"consent":{"method":1}}',
+      ],
+      [
+        PhoneIdClient::class,
+        "getInfoAlt",
+        [
+          self::EXAMPLE_PHONE_NUMBER,
+        ],
+        "uri" => self::EXAMPLE_REST_ENDPOINT . "/v1/phoneid",
+        '{"phone_number":"'.self::EXAMPLE_PHONE_NUMBER.'","consent":{"method":1}}',
       ]
     ];
   }

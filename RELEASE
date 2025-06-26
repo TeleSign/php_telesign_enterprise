@@ -1,3 +1,6 @@
+3.3.0
+- Added methods to get information about a specified phone number
+
 3.2.0
 - Added method to update verification process.
 - Added method to retrieve verification process.

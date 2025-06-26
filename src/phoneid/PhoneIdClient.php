@@ -20,6 +20,8 @@ class PhoneIdClient extends _PhoneIdClient {
   const PHONEID_CONTACT_RESOURCE = "/v1/phoneid/contact/%s";
   const PHONEID_LIVE_RESOURCE = "/v1/phoneid/live/%s";
   const PHONEID_NUMBER_DEACTIVATION_RESOURCE = "/v1/phoneid/number_deactivation/%s";
+  const PHONEID_GET_INFO_PATH = "/v1/phoneid/%s";
+  const PHONEID_GET_INFO_PATH_ALT = "/v1/phoneid";
 
   function __construct ($customer_id, $api_key, $rest_endpoint = "https://rest-ww.telesign.com", ...$other) {
     $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
@@ -85,4 +87,35 @@ class PhoneIdClient extends _PhoneIdClient {
     ]));
   }
 
+  /**
+   * Enter a phone number with country code to receive detailed information about carrier, location, and other details.
+   *
+   * See https://developer.telesign.com/enterprise/reference/submitphonenumberforidentity for detailed API documentation.
+   */
+
+  function getInfo ($phone_number, array $params = []) {
+    if (!isset($params["consent"])) {
+      $params["consent"] = [
+        "method" => 1
+      ];
+    }
+    return $this->post(sprintf(self::PHONEID_GET_INFO_PATH, $phone_number), $params, null, null, "application/json", "Basic");
+  }
+
+  /**
+   * Enter a phone number with country code to receive detailed information about carrier, location, and other details.
+   *
+   * See https://developer.telesign.com/enterprise/reference/submitphonenumberforidentityalt for detailed API documentation.
+   */
+
+  function getInfoAlt ($phone_number, array $params = []) {
+    $params["phone_number"] = $phone_number;
+
+    if (!isset($params["consent"])) {
+      $params["consent"] = [
+        "method" => 1
+      ];
+    }
+    return $this->post(self::PHONEID_GET_INFO_PATH_ALT, $params, null, null, "application/json", "Basic");
+  }
 }
