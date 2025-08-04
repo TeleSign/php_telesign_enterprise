@@ -1,0 +1,49 @@
+<?php
+
+require __DIR__ . "/../../vendor/autoload.php";
+
+use telesign\enterprise\sdk\appverify\AppVerifyClient;
+
+$customer_id = getenv('CUSTOMER_ID') ?? 'F797DF2A-DE2D-452D-971A-A62AAD2EEF52';
+$api_key = getenv('API_KEY') ?? 'Y8MY8YQBPDy/S41+Id+/xPvubb79UiQHXDp6DMlfsxdwcixjH1RP4DNHuoAuJ0ljvWWOMU/omUv46h9tDCA==';
+$phone_number = getenv('PHONE_NUMBER') ?? '918105955669';
+
+$appVerify = new AppVerifyClient($customer_id, $api_key);
+
+// Initiate the app verify call to get reference ID
+$initiateResponse = $appVerify->initiate($phone_number);
+
+if (!$initiateResponse->ok) 
+{
+    echo "Error initiating app verify call: " . print_r($initiateResponse->json, true) . PHP_EOL;
+    exit(1);
+}
+
+$reference_id = $initiateResponse->json["reference_id"] ?? null;
+
+if (empty($reference_id)) 
+{
+    echo "No reference_id returned from initiate call. Cannot proceed." . PHP_EOL;
+    exit(1);
+}
+
+echo "Verification call initiated. Reference ID: $reference_id\n";
+
+// Report unknownCaller_Id
+$unknown_caller_id = "1234567890";
+echo "Reporting unknown caller ID with invalid prefix: $unknown_caller_id\n";
+
+$response = $appVerify->reportUnknownCallerId($reference_id, $unknown_caller_id);
+
+echo "Report Unknown Caller ID Status Code: " . ($response->status_code ?? 'Unknown') . PHP_EOL;
+
+if ($response->ok && isset($response->json["status"]["code"])) 
+{
+    echo "Received status code: " . $response->json["status"]["code"] . PHP_EOL;
+    echo "Description: " . $response->json["status"]["description"] . PHP_EOL;
+} 
+else 
+{
+    echo "Error reporting unknown caller ID:" . PHP_EOL;
+    print_r($response->json);
+}
