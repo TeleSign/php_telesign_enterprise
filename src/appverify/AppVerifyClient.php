@@ -5,6 +5,11 @@ namespace telesign\enterprise\sdk\appverify;
 use telesign\sdk\appverify\AppVerifyClient as _AppVerifyClient;
 use telesign\enterprise\sdk\Config;
 
+/**
+ * App Verify is a secure, lightweight SDK that integrates a frictionless user verification process into existing
+ * native mobile applications.
+ */
+
 class AppVerifyClient extends _AppVerifyClient
 {
     const APP_VERIFY_BASE_RESOURCE = "/v1/verify/auto/voice";
