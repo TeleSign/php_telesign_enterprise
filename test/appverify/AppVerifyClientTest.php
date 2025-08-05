@@ -21,6 +21,7 @@ final class AppVerifyClientTest extends ClientTest
                 "initiate",
                 [
                     self::EXAMPLE_PHONE_NUMBER,
+                    []
                 ],
                 self::EXAMPLE_REST_ENDPOINT . self::APP_VERIFY_BASE_RESOURCE . "/initiate",
                 [
@@ -34,6 +35,7 @@ final class AppVerifyClientTest extends ClientTest
                 "finalize",
                 [
                     self::EXAMPLE_REFERENCE_ID,
+                    []
                 ],
                 self::EXAMPLE_REST_ENDPOINT . self::APP_VERIFY_BASE_RESOURCE . "/finalize",
                 [
@@ -48,6 +50,7 @@ final class AppVerifyClientTest extends ClientTest
                 [
                     self::EXAMPLE_REFERENCE_ID,
                     self::EXAMPLE_UNKNOWN_CALLER_ID,
+                    []
                 ],
                 self::EXAMPLE_REST_ENDPOINT . self::APP_VERIFY_BASE_RESOURCE . "/finalize/callerid",
                 [

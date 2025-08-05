@@ -17,7 +17,6 @@ class AppVerifyClient extends _AppVerifyClient
     const FINALIZE_RESOURCE = self::APP_VERIFY_BASE_RESOURCE . "/finalize";
     const FINALIZE_CALLERID_RESOURCE = self::APP_VERIFY_BASE_RESOURCE . "/finalize/callerid";
     const FINALIZE_TIMEOUT_RESOURCE = self::APP_VERIFY_BASE_RESOURCE . "/finalize/timeout";
-    const TRANSACTION_STATUS_RESOURCE = self::APP_VERIFY_BASE_RESOURCE; // + "/{reference_id}" appended dynamically
 
     function __construct($customer_id, $api_key, $rest_endpoint = "https://rest-ww.telesign.com", ...$other)
     {
@@ -30,13 +29,14 @@ class AppVerifyClient extends _AppVerifyClient
      * Use this endpont to initiate verification of the specified phone number using the Telesign App Verify API.
      *
      * @param string $phone_number
+     * @param array $optionalParams is array for additional parameters like 'verify_code', 'language'
      * @return array Response from Telesign API
      * 
      * See https://developer.telesign.com/enterprise/reference/sendappverifycode for detailed API documentation.
      */
-    public function initiate($phone_number)
+    public function initiate(string $phone_number, array $optionalParams = [])
     {
-        $params = ["phone_number" => $phone_number];
+        $params = array_merge(["phone_number" => $phone_number], $optionalParams);
         return $this->post(self::INITIATE_RESOURCE, $params);
     }
 
@@ -44,13 +44,14 @@ class AppVerifyClient extends _AppVerifyClient
      * Use this endpoint to terminate a call created using the Telesign App Verify API if the handset does not terminate the call in your application.
      *
      * @param string $reference_id
+     * @param array $optionalParams is array for additional parameters like 'verify_code'
      * @return array Response from Telesign API
      * 
      * See https://developer.telesign.com/enterprise/reference/endappverifycall for detailed API documentation.
      */
-    public function finalize($reference_id)
+    public function finalize(string $reference_id, array $optionalParams = [])
     {
-        $params = ["reference_id" => $reference_id];
+        $params = array_merge(["reference_id" => $reference_id], $optionalParams);
         return $this->post(self::FINALIZE_RESOURCE, $params);
     }
 
@@ -61,16 +62,17 @@ class AppVerifyClient extends _AppVerifyClient
      *
      * @param string $reference_id
      * @param string $unknown_caller_id
+     * @param array $optionalParams is array for additional parameters like 'customer_id'
      * @return array Response from Telesign API
      * 
      * See https://developer.telesign.com/enterprise/reference/reportappverifycallerid for detailed API documentation.
      */
-    public function reportUnknownCallerId($reference_id, $unknown_caller_id)
+    public function reportUnknownCallerId(string $reference_id, string $unknown_caller_id, array $optionalParams = [])
     {
-        $params = [
+        $params = array_merge([
             "reference_id" => $reference_id,
             "unknown_caller_id" => $unknown_caller_id,
-        ];
+        ], $optionalParams);
         return $this->post(self::FINALIZE_CALLERID_RESOURCE, $params);
     }
 
@@ -83,7 +85,7 @@ class AppVerifyClient extends _AppVerifyClient
      * 
      * * See https://developer.telesign.com/enterprise/reference/reportappverifytimeout for detailed API documentation.
      */
-    public function reportTimeout($reference_id)
+    public function reportTimeout(string $reference_id)
     {
         $params = ["reference_id" => $reference_id];
         return $this->post(self::FINALIZE_TIMEOUT_RESOURCE, $params);
@@ -97,8 +99,8 @@ class AppVerifyClient extends _AppVerifyClient
      * 
      * See https://developer.telesign.com/enterprise/reference/getappverifystatus for detailed API documentation.
      */
-    public function getTransactionStatus($reference_id)
+    public function getTransactionStatus(string $reference_id)
     {
-      return $this->get(self::TRANSACTION_STATUS_RESOURCE . "/" . $reference_id);
+      return $this->get(self::APP_VERIFY_BASE_RESOURCE . "/" . $reference_id);
     }
 }

@@ -12,7 +12,7 @@ $appVerify = new AppVerifyClient($customer_id, $api_key);
 
 // Initiate verification call 
 echo "Initiating verification call to $phone_number..." . PHP_EOL;
-$response = $appVerify->initiate($phone_number);
+$response = $appVerify->initiate($phone_number,[]);
 echo "Status Code: " . ($response->status_code ?? "Unknown") . PHP_EOL;
 
 if ($response->ok) 

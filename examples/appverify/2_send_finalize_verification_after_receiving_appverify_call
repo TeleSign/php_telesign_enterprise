@@ -11,7 +11,7 @@ $phone_number = getenv('PHONE_NUMBER') ?? '11234567890';
 $appVerify = new AppVerifyClient($customer_id, $api_key);
 
 // Initiate verification call to get reference ID
-$initiateResponse = $appVerify->initiate($phone_number);
+$initiateResponse = $appVerify->initiate($phone_number,[]);
 
 if (!$initiateResponse->ok) 
 {
@@ -30,7 +30,7 @@ if (empty($reference_id))
 echo "Verification call initiated. Reference ID: $reference_id" . PHP_EOL;
 
 // Finalize the verification call using the reference ID generated from Initiate call
-$response = $appVerify->finalize($reference_id);
+$response = $appVerify->finalize($reference_id,[]);
 
 echo "Status Code: " . ($response->status_code ?? "Unknown") . PHP_EOL;
 
