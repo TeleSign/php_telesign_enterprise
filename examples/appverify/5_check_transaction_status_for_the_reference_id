@@ -1,0 +1,61 @@
+<?php
+
+require __DIR__ . "/../../vendor/autoload.php";
+
+use telesign\enterprise\sdk\appverify\AppVerifyClient;
+
+$customer_id = getenv('CUSTOMER_ID') ?? 'FFFFFFFF-EEEE-DDDD-1234-AB1234567890';
+$api_key = getenv('API_KEY') ?? 'ABC12345yusumoN6BYsBVkh+yRJ5czgsnCehZaOYldPJdmFh6NeX8kunZ2zU1YWaUw/0wV6xfw==';
+$phone_number = getenv('PHONE_NUMBER') ?? '11234567890';
+
+$appVerify = new AppVerifyClient($customer_id, $api_key);
+
+echo "*** Initiate Verification ***" . PHP_EOL;
+
+// Initiate the verification call to get reference ID 
+$initiateResponse = $appVerify->initiate($phone_number);
+
+if (!$initiateResponse->ok) 
+{
+    echo "Error initiating app verify call: " . print_r($initiateResponse->json, true) . PHP_EOL;
+    exit(1);
+}
+
+$reference_id = $initiateResponse->json['reference_id'] ?? null;
+
+if (empty($reference_id)) 
+{
+    echo "No reference_id returned from initiate call. Aborting." . PHP_EOL;
+    exit(1);
+}
+
+echo "Verification call initiated. Reference ID: $reference_id" . PHP_EOL;
+
+// Finalize to get success response
+$finalizeResponse = $appVerify->finalize($reference_id);
+
+if (!$finalizeResponse->ok) 
+{
+    echo "Error finalizing verification: " . print_r($finalizeResponse->json, true) . PHP_EOL;
+    exit(1);
+}
+
+echo "Verification finalized successfully." . PHP_EOL;
+
+// Fetch transaction_status
+echo "Fetching transaction status for Reference ID: $reference_id..." . PHP_EOL;
+
+$statusResponse = $appVerify->getTransactionStatus($reference_id);
+
+echo "Status Code: " . ($statusResponse->status_code ?? 'Unknown') . PHP_EOL;
+
+if ($statusResponse->ok) 
+{
+    echo "Transaction status received:" . PHP_EOL;
+    print_r($statusResponse->json);
+} 
+else 
+{
+    echo "Error fetching transaction status:" . PHP_EOL;
+    print_r($statusResponse->json);
+}

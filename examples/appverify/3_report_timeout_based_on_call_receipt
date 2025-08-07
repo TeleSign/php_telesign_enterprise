@@ -1,0 +1,44 @@
+<?php
+
+require __DIR__ . "/../../vendor/autoload.php";
+
+use telesign\enterprise\sdk\appverify\AppVerifyClient;
+
+$customer_id = getenv('CUSTOMER_ID') ?? 'FFFFFFFF-EEEE-DDDD-1234-AB1234567890';
+$api_key    = getenv('API_KEY') ?? 'ABC12345yusumoN6BYsBVkh+yRJ5czgsnCehZaOYldPJdmFh6NeX8kunZ2zU1YWaUw/0wV6xfw==';
+$phone_number = getenv('PHONE_NUMBER') ?? '11234567890';
+
+$appVerify = new AppVerifyClient($customer_id, $api_key);
+
+// Initiate the app verify call to get reference ID
+$response = $appVerify->initiate($phone_number);
+
+if (!$response->ok) 
+{
+    echo "Error initiating app verify call: " . print_r($response->json, true) . PHP_EOL;
+    exit(1);
+}
+
+$reference_id = $response->json['reference_id'] ?? null;
+
+if (empty($reference_id)) 
+{
+    echo "No reference ID returned from initiate call. Cannot proceed." . PHP_EOL;
+    exit(1);
+}
+
+echo "Verification call initiated. Reference ID: $reference_id" . PHP_EOL;
+
+// Report timeout 
+$timeoutResponse = $appVerify->reportTimeout($reference_id);
+
+echo "Status Code: " . ($timeoutResponse->status_code ?? "Unknown") . PHP_EOL;
+
+if ($timeoutResponse->ok) 
+{
+    echo "Timeout successfully reported." . PHP_EOL;
+} 
+else 
+{
+    echo "Error reporting timeout: " . print_r($timeoutResponse->json, true) . PHP_EOL;
+}
