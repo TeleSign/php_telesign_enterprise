@@ -1,0 +1,45 @@
+<?php
+
+require __DIR__ . "/../../vendor/autoload.php";
+
+use telesign\enterprise\sdk\appverify\AppVerifyClient;
+
+$customer_id = getenv('CUSTOMER_ID') ?? 'FFFFFFFF-EEEE-DDDD-1234-AB1234567890';
+$api_key    = getenv('API_KEY') ?? 'ABC12345yusumoN6BYsBVkh+yRJ5czgsnCehZaOYldPJdmFh6NeX8kunZ2zU1YWaUw/0wV6xfw==';
+$phone_number = getenv('PHONE_NUMBER') ?? '11234567890';
+
+$appVerify = new AppVerifyClient($customer_id, $api_key);
+
+// Initiate verification call to get reference ID
+$initiateResponse = $appVerify->initiate($phone_number,[]);
+
+if (!$initiateResponse->ok) 
+{
+    echo "Error initiating app verify call: " . print_r($initiateResponse->json, true) . PHP_EOL;
+    exit(1);
+}
+
+$reference_id = $initiateResponse->json['reference_id'] ?? null;
+
+if (empty($reference_id)) 
+{
+    echo "No reference ID returned from initiate call. Cannot finalize." . PHP_EOL;
+    exit(1);
+}
+
+echo "Verification call initiated. Reference ID: $reference_id" . PHP_EOL;
+
+// Finalize the verification call using the reference ID generated from Initiate call
+$response = $appVerify->finalize($reference_id,[]);
+
+echo "Status Code: " . ($response->status_code ?? "Unknown") . PHP_EOL;
+
+if ($response->ok) 
+{
+    echo "Call finalized successfully." . PHP_EOL;
+} 
+else 
+{
+    echo "Error finalizing call:" . PHP_EOL;
+    print_r($response->json);
+}
