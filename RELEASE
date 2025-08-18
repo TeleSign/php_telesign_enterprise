@@ -1,3 +1,8 @@
+4.0.0
+- Removed Legacy PID Contact from PHP FS SDK.
+- Removed Legacy PID Number Deactivation from PHP FS SDK.
+- Removed broken Telebureau methods in PHP FS SDK.
+
 3.4.0
 - Added full support for App Verify API.
 
