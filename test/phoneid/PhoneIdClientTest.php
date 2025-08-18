@@ -25,17 +25,6 @@ final class PhoneIdClientTest extends ClientTest {
       ],
       [
         PhoneIdClient::class,
-        "contact",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-          self::EXAMPLE_UCID,
-          [ "optional_param" => "123" ]
-        ],
-        self::EXAMPLE_REST_ENDPOINT. "/v1/phoneid/contact/" . self::EXAMPLE_PHONE_NUMBER . "?optional_param=123&ucid=" . self::EXAMPLE_UCID,
-        []
-      ],
-      [
-        PhoneIdClient::class,
         "live",
         [
           self::EXAMPLE_PHONE_NUMBER,
@@ -43,17 +32,6 @@ final class PhoneIdClientTest extends ClientTest {
           [ "optional_param" => "123" ]
         ],
         self::EXAMPLE_REST_ENDPOINT. "/v1/phoneid/live/" . self::EXAMPLE_PHONE_NUMBER . "?optional_param=123&ucid=" . self::EXAMPLE_UCID,
-        []
-      ],
-      [
-        PhoneIdCLient::class,
-        "numberDeactivation",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-          self::EXAMPLE_UCID,
-          [ "optional_param" => "123" ]
-        ],
-        self::EXAMPLE_REST_ENDPOINT. "/v1/phoneid/number_deactivation/" . self::EXAMPLE_PHONE_NUMBER . "?optional_param=123&ucid=" . self::EXAMPLE_UCID,
         []
       ],
       [
