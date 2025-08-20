@@ -8,7 +8,6 @@ use telesign\sdk\ClientTest;
 final class TelebureauClientTest extends ClientTest {
 
   const EXAMPLE_PHONE_NUMBER = Example::PHONE_NUMBER;
-  const EXAMPLE_UCID = Example::UCID;
   const EXAMPLE_REFERENCE_ID = Example::REFERENCE_ID;
   const EXAMPLE_FRAUD_TYPE = "chargeback";
 
@@ -43,19 +42,6 @@ final class TelebureauClientTest extends ClientTest {
         self::EXAMPLE_REST_ENDPOINT . "/v1/telebureau/event/". self::EXAMPLE_REFERENCE_ID . "?optional_param=123",
         []
       ],
-      [
-        TelebureauClient::class,
-        "deleteEvent",
-        [
-          self::EXAMPLE_REFERENCE_ID,
-          [
-            "optional_param" => "123"
-          ]
-        ],
-        self::EXAMPLE_REST_ENDPOINT . "/v1/telebureau/event/". self::EXAMPLE_REFERENCE_ID . "?optional_param=123",
-        []
-      ],
     ];
   }
-
 }

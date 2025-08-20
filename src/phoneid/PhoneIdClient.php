@@ -17,9 +17,7 @@ class PhoneIdClient extends _PhoneIdClient {
 
   const PHONEID_STANDARD_RESOURCE = "/v1/phoneid/standard/%s";
   const PHONEID_SCORE_RESOURCE = "/v1/phoneid/score/%s";
-  const PHONEID_CONTACT_RESOURCE = "/v1/phoneid/contact/%s";
   const PHONEID_LIVE_RESOURCE = "/v1/phoneid/live/%s";
-  const PHONEID_NUMBER_DEACTIVATION_RESOURCE = "/v1/phoneid/number_deactivation/%s";
   const PHONEID_GET_INFO_PATH = "/v1/phoneid/%s";
   const PHONEID_GET_INFO_PATH_ALT = "/v1/phoneid";
 
@@ -52,18 +50,6 @@ class PhoneIdClient extends _PhoneIdClient {
   }
 
   /**
-   * The PhoneID Contact API delivers contact information related to the subscriber's phone number to provide another
-   * set of indicators for established risk engines.
-   *
-   * See https://developer.telesign.com/docs/rest_api-phoneid-contact for detailed API documentation.
-   */
-  function contact ($phone_number, $ucid, array $other = []) {
-    return $this->get(sprintf(self::PHONEID_CONTACT_RESOURCE, $phone_number), array_merge($other, [
-      "ucid" => $ucid
-    ]));
-  }
-
-  /**
    * The PhoneID Live API delivers insights such as whether a phone is active or disconnected, a device is reachable
    * or unreachable and its roaming status.
    *
@@ -71,18 +57,6 @@ class PhoneIdClient extends _PhoneIdClient {
    */
   function live ($phone_number, $ucid, array $other = []) {
     return $this->get(sprintf(self::PHONEID_LIVE_RESOURCE, $phone_number), array_merge($other, [
-      "ucid" => $ucid
-    ]));
-  }
-
-  /**
-   * The PhoneID Number Deactivation API determines whether a phone number has been deactivated and when, based on
-   * carriers' phone number data and TeleSign's proprietary analysis.
-   *
-   * See https://developer.telesign.com/docs/rest_api-phoneid-number-deactivation for detailed API documentation.
-   */
-  function numberDeactivation ($phone_number, $ucid, array $other = []) {
-    return $this->get(sprintf(self::PHONEID_NUMBER_DEACTIVATION_RESOURCE, $phone_number), array_merge($other, [
       "ucid" => $ucid
     ]));
   }
