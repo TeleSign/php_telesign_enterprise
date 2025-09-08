@@ -2,7 +2,7 @@
 
 namespace telesign\enterprise\sdk\appverify;
 
-use telesign\sdk\appverify\AppVerifyClient as _AppVerifyClient;
+use telesign\sdk\rest\RestClient;
 use telesign\enterprise\sdk\Config;
 
 /**
@@ -10,7 +10,7 @@ use telesign\enterprise\sdk\Config;
  * native mobile applications.
  */
 
-class AppVerifyClient extends _AppVerifyClient
+class AppVerifyClient extends RestClient
 {
     const APP_VERIFY_BASE_RESOURCE = "/v1/verify/auto/voice";
     const INITIATE_RESOURCE = self::APP_VERIFY_BASE_RESOURCE . "/initiate";
