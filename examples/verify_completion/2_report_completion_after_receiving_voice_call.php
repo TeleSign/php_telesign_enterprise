@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . "/../vendor/autoload.php";
+require __DIR__ . "/../../vendor/autoload.php";
 
 use telesign\enterprise\sdk\verify\VerifyClient;
 use function telesign\sdk\util\randomWithNDigits;

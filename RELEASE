@@ -1,3 +1,6 @@
+4.0.2
+- Update SS version to use latest
+
 4.0.1
 - Removed dependency on AppVerifyClient from Self Service SDK.
 
