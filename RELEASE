@@ -1,3 +1,6 @@
+4.0.3
+- Added config.php to Composer’s autoload classmap to prevent file-loading errors on case-sensitive systems, while maintaining compatibility with existing integrations.
+
 4.0.2
 - Update SS version to use latest
 
