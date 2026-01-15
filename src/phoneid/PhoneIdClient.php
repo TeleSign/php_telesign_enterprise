@@ -16,7 +16,6 @@ use telesign\enterprise\sdk\Config;
 class PhoneIdClient extends _PhoneIdClient {
 
   const PHONEID_STANDARD_RESOURCE = "/v1/phoneid/standard/%s";
-  const PHONEID_SCORE_RESOURCE = "/v1/phoneid/score/%s";
   const PHONEID_LIVE_RESOURCE = "/v1/phoneid/live/%s";
   const PHONEID_GET_INFO_PATH = "/v1/phoneid/%s";
   const PHONEID_GET_INFO_PATH_ALT = "/v1/phoneid";
@@ -35,18 +34,6 @@ class PhoneIdClient extends _PhoneIdClient {
    */
   function standard ($phone_number, array $params = []) {
     return $this->get(sprintf(self::PHONEID_STANDARD_RESOURCE, $phone_number), $params);
-  }
-
-  /**
-   * Score is an API that delivers reputation scoring based on phone number intelligence, traffic patterns, machine
-   * learning, and a global data consortium.
-   *
-   * See https://developer.telesign.com/docs/rest_api-phoneid-score for detailed API documentation.
-   */
-  function score ($phone_number, $ucid, array $other = []) {
-    return $this->get(sprintf(self::PHONEID_SCORE_RESOURCE, $phone_number), array_merge($other, [
-      "ucid" => $ucid
-    ]));
   }
 
   /**
