@@ -14,17 +14,6 @@ final class PhoneIdClientTest extends ClientTest {
     return [
       [
         PhoneIdClient::class,
-        "score",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-          self::EXAMPLE_UCID,
-          [ "optional_param" => "123" ]
-        ],
-        "uri" => self::EXAMPLE_REST_ENDPOINT . "/v1/phoneid/score/" . self::EXAMPLE_PHONE_NUMBER . "?optional_param=123&ucid=" . self::EXAMPLE_UCID,
-        []
-      ],
-      [
-        PhoneIdClient::class,
         "live",
         [
           self::EXAMPLE_PHONE_NUMBER,
