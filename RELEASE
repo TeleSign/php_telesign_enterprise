@@ -1,3 +1,6 @@
+5.0.1
+- Fix version ranges
+
 5.0.0
 - Added support for Intelligence Cloud to use the new endpoint
 - Removed Legacy PID Score
