@@ -22,7 +22,7 @@
   ],
   "require": {
     "php": "^7.2.5 || ^8.0",
-    "telesign/telesign": "^5.0"
+    "telesign/telesign": "^5.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
