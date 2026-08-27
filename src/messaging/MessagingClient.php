@@ -4,6 +4,7 @@ namespace telesign\enterprise\sdk\messaging;
 
 use telesign\sdk\messaging\MessagingClient as _MessagingClient;
 use telesign\enterprise\sdk\Config;
+use telesign\sdk\rest\RouteAutoLoader;
 
 /**
  * TeleSign's Messaging API allows you to easily send SMS messages. You can send alerts, reminders, and notifications,
@@ -15,10 +16,13 @@ class MessagingClient extends _MessagingClient {
   const CAPABILITY_RESOURCE = "/capability";
   const TEMPLATES_RESOURCE = "/v1/omnichannel/templates";
 
+  use RouteAutoLoader;
+
   function __construct ($customer_id, $api_key, $rest_endpoint = "https://rest-ww.telesign.com", ...$other) {
     $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
     $sdk_version_dependency = Config::getVersion('telesign/telesign');
     parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
+    $this->routeMap = $this->loadAutomatedRoutes();
   }
 
   /**

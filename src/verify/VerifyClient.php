@@ -5,11 +5,14 @@ namespace telesign\enterprise\sdk\verify;
 use telesign\sdk\rest\RestClient;
 use telesign\enterprise\sdk\Config;
 use telesign\enterprise\sdk\verify\OmniVerifyClient;
+use telesign\sdk\rest\RouteAutoLoader;
 
 /**
  * The Telesign Verify API makes it easy for you to set up phone-based, multi-factor authentication (MFA) using multiple channels and methods.
  */
 class VerifyClient extends RestClient {
+
+  use RouteAutoLoader;
 
   const VERIFY_SMS_RESOURCE = "/v1/verify/sms";
   const VERIFY_VOICE_RESOURCE = "/v1/verify/call";
@@ -25,6 +28,7 @@ class VerifyClient extends RestClient {
     $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
     $sdk_version_dependency = Config::getVersion('telesign/telesign');
     parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
+    $this->routeMap = $this->loadAutomatedRoutes();
   }
 
   /**

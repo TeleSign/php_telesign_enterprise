@@ -22,7 +22,7 @@
   ],
   "require": {
     "php": "^7.2.5 || ^8.0",
-    "telesign/telesign": "^5.1"
+    "telesign/telesign": "^5.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
@@ -43,6 +43,7 @@
     }
   },
   "scripts": {
-    "test": "phpunit --bootstrap ./vendor/autoload.php test/ --coverage-clover coverage.xml --whitelist src/"
+    "test": "phpunit --bootstrap ./vendor/autoload.php test/ --coverage-clover coverage.xml --whitelist src/",
+    "build-routes": "bash ./autogen.sh"
   }
 }

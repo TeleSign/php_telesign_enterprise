@@ -4,6 +4,7 @@ namespace telesign\enterprise\sdk\telebureau;
 
 use telesign\sdk\rest\RestClient;
 use telesign\enterprise\sdk\Config;
+use telesign\sdk\rest\RouteAutoLoader;
 
 /**
  * TeleBureau is a service is based on TeleSign's watchlist, which is a proprietary database containing verified phone
@@ -12,6 +13,9 @@ use telesign\enterprise\sdk\Config;
  */
 class TelebureauClient extends RestClient {
 
+  use RouteAutoLoader;
+
+
   const TELEBUREAU_CREATE_RESOURCE = "/v1/telebureau/event";
   const TELEBUREAU_RETRIEVE_RESOURCE = "/v1/telebureau/event/%s";
 
@@ -19,6 +23,7 @@ class TelebureauClient extends RestClient {
     $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
     $sdk_version_dependency = Config::getVersion('telesign/telesign');
     parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
+    $this->routeMap = $this->loadAutomatedRoutes();
   }
 
   /**
