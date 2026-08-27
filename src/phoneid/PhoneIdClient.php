@@ -4,6 +4,7 @@ namespace telesign\enterprise\sdk\phoneid;
 
 use telesign\sdk\phoneid\PhoneIdClient as _PhoneIdClient;
 use telesign\enterprise\sdk\Config;
+use telesign\sdk\rest\RouteAutoLoader;
 
 /**
  * PhoneID is a set of REST APIs that deliver deep phone number data attributes that help optimize the end user
@@ -14,6 +15,8 @@ use telesign\enterprise\sdk\Config;
  * creating accounts and accessing your applications.
  */
 class PhoneIdClient extends _PhoneIdClient {
+  
+  use RouteAutoLoader;
 
   const PHONEID_STANDARD_RESOURCE = "/v1/phoneid/standard/%s";
   const PHONEID_LIVE_RESOURCE = "/v1/phoneid/live/%s";
@@ -24,6 +27,7 @@ class PhoneIdClient extends _PhoneIdClient {
     $sdk_version_origin = Config::getVersion('telesign/telesignenterprise');
     $sdk_version_dependency = Config::getVersion('telesign/telesign');
     parent::__construct($customer_id, $api_key, $rest_endpoint, "php_telesign_enterprise", $sdk_version_origin, $sdk_version_dependency, ...$other);
+    $this->routeMap = $this->loadAutomatedRoutes();
   }
 
   /**
