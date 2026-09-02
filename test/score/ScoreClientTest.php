@@ -2,31 +2,18 @@
 
 namespace telesign\enterprise\sdk\score;
 
-use telesign\sdk\Example;
-use telesign\sdk\ClientTest;
+use PHPUnit\Framework\TestCase;
+use telesign\sdk\score\ScoreClient as DependencyScoreClient;
 
-final class ScoreClientTest extends ClientTest {
+final class ScoreClientTest extends TestCase {
 
-  const EXAMPLE_PHONE_NUMBER = Example::PHONE_NUMBER;
-  const EXAMPLE_ACCOUNT_LIFECYCLE_EVENT = Example::ACCOUNT_LIFECYCLE_EVENT;
+  use \telesign\enterprise\sdk\TestDependencyHelper;
 
-  function getRequestExamples () {
-    return [
-      [
-        ScoreClient::class,
-        "score",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-          self::EXAMPLE_ACCOUNT_LIFECYCLE_EVENT,
-          [ "optional_param" => "123" ]
-        ],
-        self::EXAMPLE_REST_ENDPOINT . "/intelligence/phone",
-        [
-          "phone_number" => self::EXAMPLE_PHONE_NUMBER,
-          "account_lifecycle_event" => self::EXAMPLE_ACCOUNT_LIFECYCLE_EVENT,
-          "optional_param" => "123"
-        ]
-      ]
-    ];
+  function testExposesDependencyMethods() {
+    $this->assertDependencyMethods(
+      ScoreClient::class,
+      DependencyScoreClient::class,
+      ["score", "emailIntelligence"]
+    );
   }
 }

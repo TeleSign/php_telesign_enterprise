@@ -4,8 +4,11 @@ namespace telesign\enterprise\sdk\messaging;
 
 use telesign\sdk\Example;
 use telesign\sdk\ClientTest;
+use telesign\sdk\messaging\MessagingClient as DependencyMessagingClient;
 
 final class MessagingClientTest extends ClientTest {
+
+  use \telesign\enterprise\sdk\TestDependencyHelper;
 
   const EXAMPLE_REFERENCE_ID = Example::REFERENCE_ID;
   const EXAMPLE_PHONE_NUMBER = Example::PHONE_NUMBER;
@@ -46,35 +49,6 @@ final class MessagingClientTest extends ClientTest {
 
   function getRequestExamples () {
     return [
-      // messaging
-      'message' => [
-        MessagingClient::class,
-        "message",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-          "Your OTP is 12345",
-          "OTP",
-          [ "optional_param" => "123" ]
-        ],
-        self::EXAMPLE_REST_ENDPOINT . "/v1/messaging",
-        [
-          "phone_number" => self::EXAMPLE_PHONE_NUMBER,
-          "message" => "Your OTP is 12345",
-          "message_type" => "OTP",
-          "optional_param" => "123"
-        ]
-      ],
-      // Messaging status 
-      'status' => [
-        MessagingClient::class,
-        "status",
-        [
-          self::EXAMPLE_REFERENCE_ID,
-          [ "optional_param" => "123" ]
-        ],
-        self::EXAMPLE_REST_ENDPOINT . "/v1/messaging/" . self::EXAMPLE_REFERENCE_ID . "?optional_param=123",
-        []
-      ],
       // omniMessage
       'omniMessage' => [
         MessagingClient::class,
@@ -140,5 +114,13 @@ final class MessagingClientTest extends ClientTest {
         []
       ]
     ];
+  }
+
+  function testExposesDependencyMethods() {
+    $this->assertDependencyMethods(
+      MessagingClient::class,
+      DependencyMessagingClient::class,
+      ["message", "status"]
+    );
   }
 }
