@@ -4,8 +4,11 @@ namespace telesign\enterprise\sdk\phoneid;
 
 use telesign\sdk\Example;
 use telesign\sdk\ClientTest;
+use telesign\sdk\phoneid\PhoneIdClient as DependencyPhoneIdClient;
 
 final class PhoneIdClientTest extends ClientTest {
+
+  use \telesign\enterprise\sdk\TestDependencyHelper;
 
   const EXAMPLE_PHONE_NUMBER = Example::PHONE_NUMBER;
   const EXAMPLE_UCID = Example::UCID;
@@ -34,25 +37,6 @@ final class PhoneIdClientTest extends ClientTest {
         []
       ],
       [
-      PhoneIdClient::class,
-        "phoneid",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-          [ "optional_param" => "123" ]
-        ],
-        "uri" => self::EXAMPLE_REST_ENDPOINT . "/v1/phoneid/" . self::EXAMPLE_PHONE_NUMBER,
-        '{"optional_param":"123"}'
-      ],
-      [
-        PhoneIdClient::class,
-        "phoneid",
-        [
-          self::EXAMPLE_PHONE_NUMBER,
-        ],
-        "uri" => self::EXAMPLE_REST_ENDPOINT . "/v1/phoneid/" . self::EXAMPLE_PHONE_NUMBER,
-        "{}",
-      ],
-      [
         PhoneIdClient::class,
         "getInfo",
         [
@@ -71,6 +55,14 @@ final class PhoneIdClientTest extends ClientTest {
         '{"phone_number":"'.self::EXAMPLE_PHONE_NUMBER.'","consent":{"method":1}}',
       ]
     ];
+  }
+
+  function testExposesDependencyMethods() {
+    $this->assertDependencyMethods(
+      PhoneIdClient::class,
+      DependencyPhoneIdClient::class,
+      ["phoneid"]
+    );
   }
 
 }
